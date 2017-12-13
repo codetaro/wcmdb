@@ -1,0 +1,50 @@
+schema:
+- db: smh
+  tables:
+  - table: news
+    collection: news
+    pipeline: []
+    columns:
+    - Name: _id
+      MongoType: bson.ObjectId
+      SqlName: _id
+      SqlType: varchar
+    - Name: add_time
+      MongoType: date
+      SqlName: add_time
+      SqlType: timestamp
+    - Name: author
+      MongoType: string
+      SqlName: author
+      SqlType: varchar
+    - Name: category
+      MongoType: string
+      SqlName: category
+      SqlType: varchar
+    - Name: scrape_time
+      MongoType: date
+      SqlName: scrape_time
+      SqlType: timestamp
+    - Name: title
+      MongoType: string
+      SqlName: title
+      SqlType: varchar
+  - table: news_keywords
+    collection: news
+    pipeline:
+    - $unwind:
+        includeArrayIndex: keywords_idx
+        path: $keywords
+    columns:
+    - Name: _id
+      MongoType: bson.ObjectId
+      SqlName: _id
+      SqlType: varchar
+    - Name: keywords
+      MongoType: string
+      SqlName: keywords
+      SqlType: varchar
+    - Name: keywords_idx
+      MongoType: int
+      SqlName: keywords_idx
+      SqlType: int
